@@ -37,22 +37,26 @@ public class App {
     var parser = new JsonParser();
     List<Map<String, String>> listaDeFilmes = parser.parse((body));
 
-    var geradorImagem = new GeradoraDeFigurinhas();
-    for (var filme : listaDeFilmes.subList(0, 5)) {
-      String urlImagem = filme.get("image");
-      String titulo = filme.get("title");
-
-      InputStream inputStream = new URL(urlImagem).openStream();
-      String nomeArquivo = titulo + ".png";
-      geradorImagem.cria(inputStream, nomeArquivo);
-
-      System.out.println(Color.BLUE + "Filme..: " + Color.CYAN + filme.get("title"));
-
-      var rate = Float.parseFloat(filme.get("imDbRating"));
-      System.out.print(Color.BLUE + "Rating.: " + Color.CYAN + "\u2B50".repeat(Math.round(rate)));
-      System.out.println(" (" + rate + ")");
-      System.out.println(Color.BLUE + "Poster.: " + Color.CYAN + filme.get("image"));
-      System.out.println();
+    Filme filme;
+    for (var item : listaDeFilmes.subList(0, 5)) {
+      filme = new Filme(item.get("title"), item.get("image"), Float.parseFloat(item.get("imDbRating")));
+      gerarImagem(filme);
+      exbirInformacao(filme);
     }
+  }
+
+  private static void gerarImagem(Filme filme) throws Exception {
+    var geradorImagem = new GeradoraDeFigurinhas();
+    InputStream inputStream = new URL(filme.imagem()).openStream();
+    String nomeArquivo = filme.titulo() + ".png";
+    geradorImagem.cria(inputStream, nomeArquivo);
+  }
+
+  private static void exbirInformacao(Filme filme) {
+    System.out.println(Color.BLUE + "Filme..: " + Color.CYAN + filme.titulo());
+    System.out.print(Color.BLUE + "Rating.: " + Color.CYAN + "\u2B50".repeat(Math.round(filme.rating())));
+    System.out.println(" (" + filme.rating() + ")");
+    System.out.println(Color.BLUE + "Poster.: " + Color.CYAN + filme.imagem());
+    System.out.println();
   }
 }
