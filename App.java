@@ -38,7 +38,7 @@ public class App {
     List<Map<String, String>> listaDeFilmes = parser.parse((body));
 
     Filme filme;
-    for (var item : listaDeFilmes) {
+    for (var item : listaDeFilmes.subList(0, 1)) {
       filme = new Filme(item.get("title"), item.get("image"), Float.parseFloat(item.get("imDbRating")));
       gerarImagem(filme);
       exbirInformacao(filme);

@@ -20,10 +20,8 @@ public class GeradoraDeFigurinhas {
     Graphics2D graphics = (Graphics2D) novaImagem.getGraphics();
     graphics.drawImage(imagemOriginal, 0, 0, null);
 
-    var fonte = new Font(Font.SANS_SERIF, Font.BOLD, 64);
-    graphics.setColor(Color.YELLOW);
-    graphics.setFont(fonte);
-    graphics.drawString("TOPZERA", 100, novaAltura - 100);
+    setTextCenter(graphics, "TOPZERA", novaImagem);
+    graphics.dispose();
 
     File directory = new File("output");
     if (!directory.exists()) {
@@ -31,5 +29,22 @@ public class GeradoraDeFigurinhas {
     }
 
     ImageIO.write(novaImagem, "png", new File("output/" + nomeArquivo));
+  }
+
+  private static void setTextCenter(Graphics2D image, String text,
+      BufferedImage bgImage) throws Exception {
+
+    InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("fonts/impact.ttf");
+    Font fonte = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(64f);
+
+    image.setColor(Color.YELLOW);
+    image.setFont(fonte);
+
+    int stringWidthLength = (int) image.getFontMetrics().getStringBounds(text, image).getWidth();
+
+    int horizontalPosition = bgImage.getWidth() / 2 - stringWidthLength / 2;
+    int verticalPosition = bgImage.getHeight() - 100;
+
+    image.drawString(text, horizontalPosition, verticalPosition);
   }
 }
