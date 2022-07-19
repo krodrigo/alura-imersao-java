@@ -38,7 +38,7 @@ public class App {
     List<Map<String, String>> listaDeFilmes = parser.parse((body));
 
     Filme filme;
-    for (var item : listaDeFilmes.subList(0, 1)) {
+    for (var item : listaDeFilmes) {
       filme = new Filme(item.get("title"), item.get("image"), Float.parseFloat(item.get("imDbRating")));
       gerarImagem(filme);
       exbirInformacao(filme);
@@ -49,7 +49,7 @@ public class App {
     var geradorImagem = new GeradoraDeFigurinhas();
     InputStream inputStream = new URL(filme.imagem()).openStream();
     String nomeArquivo = filme.titulo() + ".png";
-    geradorImagem.cria(inputStream, nomeArquivo);
+    geradorImagem.cria(inputStream, nomeArquivo, filme.rating());
   }
 
   private static void exbirInformacao(Filme filme) {

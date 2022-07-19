@@ -8,7 +8,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public class GeradoraDeFigurinhas {
-  public void cria(InputStream inputStream, String nomeArquivo) throws Exception {
+  public void cria(InputStream inputStream, String nomeArquivo, float rating) throws Exception {
 
     BufferedImage imagemOriginal = ImageIO.read(inputStream);
 
@@ -20,7 +20,9 @@ public class GeradoraDeFigurinhas {
     Graphics2D graphics = (Graphics2D) novaImagem.getGraphics();
     graphics.drawImage(imagemOriginal, 0, 0, null);
 
-    setTextCenter(graphics, "TOPZERA", novaImagem);
+    String texto = definirTextoPeloRating(rating);
+
+    setTextCenter(graphics, texto, novaImagem);
     graphics.dispose();
 
     File directory = new File("output");
@@ -29,6 +31,17 @@ public class GeradoraDeFigurinhas {
     }
 
     ImageIO.write(novaImagem, "png", new File("output/" + nomeArquivo));
+  }
+
+  private static String definirTextoPeloRating(float rating) {
+    System.out.println(rating);
+    if (rating > 9)
+      return "TOPZERA";
+    if (rating > 8)
+      return "BEM BOM";
+    if (rating > 7)
+      return "MEIA BOCA";
+    return "NEM VALE A PENA";
   }
 
   private static void setTextCenter(Graphics2D image, String text,
