@@ -33,7 +33,7 @@ A exibição do resultado foi formatada com cores e rating visual.
 
 A url da api foi alterada por um mock, pois o imdb ficou indisponível.
 
-Resultado do primero dia
+Resultado do primero dia  
 ![Resultado dia 01](resultado-dia-01.png)
 
 
@@ -43,5 +43,5 @@ As imagens de cada filme estão sendo gravadas em um diretório de output, que �
 A imagem gerada tem um texto que varia em função do rating que o filme tem no imdb.  
 O texto da imagem usa uma fonte personalizada (IMPACT) e está centralizado horizontalmente, abaixo do poster
 
-Resultado do segundo dia
-![Resultado dia 01](resultado-dia-02.png)
+Resultado do segundo dia  
+![Resultado dia 02](resultado-dia-02.png)
