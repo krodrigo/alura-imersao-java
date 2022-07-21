@@ -26,7 +26,7 @@ public class App {
     var http = new ClienteHttp();
     var json = http.buscarDados(url);
 
-    var extrator = new ExtratorDeConteudoDaNasa();
+    ExtratorDeConteudo extrator = new ExtratorDeConteudoDaNasa();
     var conteudos = extrator.extraiConteudos(json);
 
     for (var item : conteudos) {
@@ -37,13 +37,13 @@ public class App {
 
   private static void gerarImagem(Conteudo conteudo) throws Exception {
     var geradorImagem = new GeradoraDeFigurinhas();
-    InputStream inputStream = new URL(conteudo.getUrlImagem()).openStream();
-    String nomeArquivo = conteudo.getTitulo() + ".png";
+    InputStream inputStream = new URL(conteudo.urlImagem()).openStream();
+    String nomeArquivo = conteudo.titulo() + ".png";
     geradorImagem.cria(inputStream, nomeArquivo);
   }
 
   private static void exbirInformacao(Conteudo conteudo) {
-    System.out.println(Color.BLUE + "Título..: " + Color.CYAN + conteudo.getTitulo());
+    System.out.println(Color.BLUE + "Título..: " + Color.CYAN + conteudo.titulo());
     System.out.println();
   }
 }
