@@ -1,7 +1,5 @@
 import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 
 public class App {
 
@@ -27,29 +25,24 @@ public class App {
     var http = new ClienteHttp();
     var json = http.buscarDados(url);
 
-    var parser = new JsonParser();
-    List<Map<String, String>> listaDeFilmes = parser.parse((json));
+    var extrator = new ExtratorDeConteudoDoImdb();
+    var conteudos = extrator.extraiConteudos(json);
 
-    Filme filme;
-    for (var item : listaDeFilmes.subList(0, 2)) {
-      filme = new Filme(item.get("title"), item.get("image"), Float.parseFloat(item.get("imDbRating")));
-      gerarImagem(filme);
-      exbirInformacao(filme);
+    for (var item : conteudos) {
+      gerarImagem(item);
+      exbirInformacao(item);
     }
   }
 
-  private static void gerarImagem(Filme filme) throws Exception {
+  private static void gerarImagem(Conteudo conteudo) throws Exception {
     var geradorImagem = new GeradoraDeFigurinhas();
-    InputStream inputStream = new URL(filme.imagem()).openStream();
-    String nomeArquivo = filme.titulo() + ".png";
-    geradorImagem.cria(inputStream, nomeArquivo, filme.rating());
+    InputStream inputStream = new URL(conteudo.getUrlImagem()).openStream();
+    String nomeArquivo = conteudo.getTitulo() + ".png";
+    geradorImagem.cria(inputStream, nomeArquivo);
   }
 
-  private static void exbirInformacao(Filme filme) {
-    System.out.println(Color.BLUE + "Filme..: " + Color.CYAN + filme.titulo());
-    System.out.print(Color.BLUE + "Rating.: " + Color.CYAN + "\u2B50".repeat(Math.round(filme.rating())));
-    System.out.println(" (" + filme.rating() + ")");
-    System.out.println(Color.BLUE + "Poster.: " + Color.CYAN + filme.imagem());
+  private static void exbirInformacao(Conteudo conteudo) {
+    System.out.println(Color.BLUE + "Filme..: " + Color.CYAN + conteudo.getTitulo());
     System.out.println();
   }
 }
