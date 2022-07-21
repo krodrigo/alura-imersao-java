@@ -21,11 +21,12 @@ public class App {
 
   public static void main(String[] args) throws Exception {
     String url = "https://api.mocki.io/v2/549a5d8b";
+    url = "https://raw.githubusercontent.com/alura-cursos/imersao-java/api/NASA-APOD.json";
 
     var http = new ClienteHttp();
     var json = http.buscarDados(url);
 
-    var extrator = new ExtratorDeConteudoDoImdb();
+    var extrator = new ExtratorDeConteudoDaNasa();
     var conteudos = extrator.extraiConteudos(json);
 
     for (var item : conteudos) {
@@ -42,7 +43,7 @@ public class App {
   }
 
   private static void exbirInformacao(Conteudo conteudo) {
-    System.out.println(Color.BLUE + "Filme..: " + Color.CYAN + conteudo.getTitulo());
+    System.out.println(Color.BLUE + "Título..: " + Color.CYAN + conteudo.getTitulo());
     System.out.println();
   }
 }
