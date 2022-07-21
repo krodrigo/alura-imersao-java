@@ -1,10 +1,5 @@
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URL;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
 import java.util.Map;
 
@@ -28,17 +23,15 @@ public class App {
 
   public static void main(String[] args) throws Exception {
     String url = "https://api.mocki.io/v2/549a5d8b";
-    URI endereco = URI.create(url);
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder(endereco).GET().build();
-    HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
-    String body = response.body();
+
+    var http = new ClienteHttp();
+    var json = http.buscarDados(url);
 
     var parser = new JsonParser();
-    List<Map<String, String>> listaDeFilmes = parser.parse((body));
+    List<Map<String, String>> listaDeFilmes = parser.parse((json));
 
     Filme filme;
-    for (var item : listaDeFilmes) {
+    for (var item : listaDeFilmes.subList(0, 2)) {
       filme = new Filme(item.get("title"), item.get("image"), Float.parseFloat(item.get("imDbRating")));
       gerarImagem(filme);
       exbirInformacao(filme);
