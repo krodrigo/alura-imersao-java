@@ -1,5 +1,3 @@
-import java.lang.reflect.Constructor;
-
 public class Conteudo {
   public Conteudo(String titulo, String urlImagem) {
     this.titulo = titulo;
