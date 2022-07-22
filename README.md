@@ -45,3 +45,13 @@ O texto da imagem usa uma fonte personalizada (IMPACT) e está centralizado hori
 
 Resultado do segundo dia  
 ![Resultado dia 02](resultado-dia-02.png)
+
+
+## Dia 03
+Criar uma abstração para extrator de conteúdo.  
+Criar uma classe para cliente http de modo a isolar essa responsabilidade.  
+Refatorar a solução para criar extratores de conteúdo personalizado por fornecedor de conteúdo (IMDB e NASA).  
+Separar o enum de cor para um arquivo a parte melhorando a manutenibilidade do programa.  
+
+Resultado do terceiro dia  
+![Resultado dia 03](resultado-dia-03.png)
